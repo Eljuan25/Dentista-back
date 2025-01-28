@@ -12,12 +12,14 @@ app.use(cors());
 app.use(express.json());
 
 // Endpoints
+// Endpoint para obtener citas (GET)
 app.get("/api/appointments", (req, res) => {
     res.json([
         { id: 1, patient: "Juan Pérez", date: "2025-01-30", time: "10:00 AM" },
         { id: 2, patient: "Ana Gómez", date: "2025-01-30", time: "11:00 AM" }
     ]);
 });
+
 
 app.post("/api/appointments", (req, res) => {
     const newAppointment = req.body;
