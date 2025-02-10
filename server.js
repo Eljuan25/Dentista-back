@@ -51,7 +51,8 @@ let diasSeleccionados = {};
 app.get('/dias', (req, res) => {
     const { year, month } = req.query;
 
-    // Validar que los parámetros sean números
+    console.log("Parámetros recibidos:", { year, month }); //  Verificar valores en la terminal
+
     if (!year || !month || isNaN(year) || isNaN(month)) {
         return res.status(400).json({ message: 'Se requiere year y month en formato numérico' });
     }
