@@ -65,7 +65,7 @@ app.delete('/cita/:id', (req, res) => {
 //Ve la cita si está selecionada.
 app.get('/cita/:id', (req, res) => {
     const { id } = req.params;
-    console.log("ID recibido:", id); // Log para ver el ID recibido
+    console.log("ID recibido:", id); 
 
     get_cita_by_id(id, (error, cita) => {
         if (error) {
@@ -73,7 +73,7 @@ app.get('/cita/:id', (req, res) => {
             return res.status(500).json({ message: "Error al obtener la cita" });
         }
         if (!cita) {
-            console.log("No se encontró la cita con ID:", id); // Log si no se encuentra la cita
+            console.log("No se encontró la cita con ID:", id); 
             return res.status(404).json({ message: "Cita no encontrada" });
         }
 
@@ -87,7 +87,7 @@ app.get('/cita/:id', (req, res) => {
 //Actualiza por si el bato no puede ese día...
 
 app.put('/cita/:id', (req, res) => {
-    const { id } = req.params;
+    const { id } = req.params;g
     const citaData = req.body;
 
     if (!citaData.Id_cliente || !citaData.Dia || citaData.Estado === undefined) {
