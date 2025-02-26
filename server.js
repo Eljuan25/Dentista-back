@@ -87,7 +87,7 @@ app.get('/cita/:id', (req, res) => {
 //Actualiza por si el bato no puede ese día...
 
 app.put('/cita/:id', (req, res) => {
-    const { id } = req.params;g
+    const { id } = req.params;
     const citaData = req.body;
 
     if (!citaData.Id_cliente || !citaData.Dia || citaData.Estado === undefined) {

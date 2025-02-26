@@ -38,9 +38,20 @@ module.exports = {
             console.log(" Cita encontrada:", res[0]);
             callback(null, res[0]);
         });
-    }
-    ,
+    },
         
+
+        conex.query("SELECT * FROM citas", function (error, res) {
+            if (error) {
+                console.log("Error en la consulta:", error);
+                return callback(error, null);
+            }
+            console.log("Citas encontradas:", res);
+            callback(null, res); 
+        });
+    },
+
+
     //Para que puedas publicar la cita.
     post_cita: function (citaData, callback) {
         const { Id_cliente, Dia, Estado } = citaData;
