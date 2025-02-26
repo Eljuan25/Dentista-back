@@ -3,6 +3,44 @@ const conex = require("./conexion.js");
 module.exports = {
     //Para ver la cita selecionada 
     get_cita: function (callback) {
+        const query = `
+            SELECT citas.id, citas.Dia, citas.Estado, cliente.nombre, cliente.telefono
+            FROM citas
+            INNER JOIN cliente ON citas.Id_cliente = cliente.id
+        `;
+    
+        conex.query(query, function (error, res) {
+            if (error) {
+                console.log(" Error en la consulta:", error);
+                return callback(error, null);
+            }
+            console.log(" Citas encontradas:", res); 
+            callback(null, res);
+        });
+    },
+    
+    get_cita_by_id: function (id, callback) {
+        const query = `
+            SELECT citas.id, citas.Dia, citas.Estado, cliente.nombre, cliente.telefono
+            FROM citas
+            INNER JOIN cliente ON citas.Id_cliente = cliente.id
+            WHERE citas.id = ?
+        `;
+    
+        conex.query(query, [id], function (error, res) {
+            if (error) {
+                console.log(" Error en la consulta:", error);
+                return callback(error, null);
+            }
+            if (res.length === 0) {
+                return callback(null, null); // No se encontró la cita
+            }
+            console.log(" Cita encontrada:", res[0]);
+            callback(null, res[0]);
+        });
+    },
+        
+
         conex.query("SELECT * FROM citas", function (error, res) {
             if (error) {
                 console.log("Error en la consulta:", error);
@@ -13,21 +51,6 @@ module.exports = {
         });
     },
 
-     // Obtener una cita por su ID
-     get_cita_by_id: function (id, callback) {
-        const query = "SELECT * FROM citas WHERE id = ?";
-        conex.query(query, [id], function (error, res) {
-            if (error) {
-                console.log("Error en la consulta:", error);
-                return callback(error, null);
-            }
-            if (res.length === 0) {
-                return callback(null, null);  // No se encontró la cita
-            }
-            console.log("Cita encontrada:", res[0]);
-            callback(null, res[0]); 
-        });
-    },
 
     //Para que puedas publicar la cita.
     post_cita: function (citaData, callback) {
