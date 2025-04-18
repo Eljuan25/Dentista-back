@@ -1,7 +1,6 @@
 const conex = require("./conexion.js");
 
 module.exports = {
-    // Para ver la cita seleccionada 
     get_cita: function (callback) {
         const query = `
             SELECT citas.id, citas.Dia, citas.Estado, cliente.nombre, cliente.telefono
@@ -91,10 +90,4 @@ module.exports = {
     }
 };
 
-
-
-
-//Traime las fechas con este año y con esté mes. 
-
-//POST,DELETE,SELECT;
 
