@@ -1,7 +1,6 @@
 const conex = require("./conexion.js");
 
 module.exports = {
-    // Para ver la cita seleccionada
     get_cita: function (callback) {
         const query = `
             SELECT citas.id, citas.Dia, citas.Estado, cliente.nombre, cliente.telefono
@@ -14,11 +13,12 @@ module.exports = {
                 console.log("Error en la consulta:", error);
                 return callback(error, null);
             }
-            console.log("Citas encontradas:", res);
+            console.log("Citas encontradas:", res); 
             callback(null, res);
         });
     },
-    
+
+    // Obtener cita por ID
     get_cita_by_id: function (id, callback) {
         const query = `
             SELECT citas.id, citas.Dia, citas.Estado, cliente.nombre, cliente.telefono
@@ -40,7 +40,7 @@ module.exports = {
         });
     },
 
-    // Para publicar la cita
+    // Publicar nueva cita
     post_cita: function (citaData, callback) {
         const { Id_cliente, Dia, Estado } = citaData;
         const query = "INSERT INTO citas (Id_cliente, Dia, Estado) VALUES (?, ?, ?)";
@@ -54,8 +54,8 @@ module.exports = {
             callback(null, { id: result.insertId, ...citaData });
         });
     },
-    
-    // Para eliminar la cita
+
+    // Eliminar cita por ID
     delete_cita: function (id, callback) {
         const query = "DELETE FROM citas WHERE id = ?";
         conex.query(query, [id], function (error, result) {
@@ -71,7 +71,7 @@ module.exports = {
         });
     },
 
-    // Para actualizar la cita
+    // Actualizar cita
     put_cita: function (id, citaData, callback) {
         const { Id_cliente, Dia, Estado } = citaData;
         const query = "UPDATE citas SET Id_cliente = ?, Dia = ?, Estado = ? WHERE id = ?";
@@ -90,11 +90,4 @@ module.exports = {
     }
 };
 
-
-
-
-
-//Traime las fechas con este año y con esté mes. 
-
-//POST,DELETE,SELECT;
 
